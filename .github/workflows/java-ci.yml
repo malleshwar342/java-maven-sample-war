@@ -48,6 +48,15 @@
                 exit-code: '1'      # FAIL pipeline if vulnerabilities found
                 severity: 'HIGH,CRITICAL'
                 
+       - name: Trivy Scan JAR artifact
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: './target'
+          format: 'table'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'
+                
        - name: jfrog CLI setup
          uses: jfrog/setup-jfrog-cli@v4
          with:
