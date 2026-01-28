@@ -49,8 +49,8 @@
                 severity: 'HIGH,CRITICAL'
                 
        - name: Trivy Scan JAR artifact
-        uses: aquasecurity/trivy-action@master
-        with:
+         uses: aquasecurity/trivy-action@master
+         with:
           scan-type: 'fs'
           scan-ref: './target'
           format: 'table'
