@@ -1,0 +1,37 @@
+
+ name: java
+
+ env:
+  JFROG_URL: ${{vars.JFROG_URL}}
+  JFROG_USERNAME: ${{vars.JFROG_USERNAME}}
+  JFROG_PASSWORD: ${{secrets.JFROG_PASSWORD}}
+ 
+ on:
+  push:
+    branches: ["main"]
+  pull_request: 
+    branches: ["main"]
+
+ jobs: 
+   build: 
+     runs-on: ubuntu-latest
+     steps:
+       - name: checkout
+         uses: actions/checkout@v4
+         
+       - name: setup-java
+         uses: actions/setup-java@v4
+         with:
+           distrubution: 'temurin'
+           version: '17'
+         
+       - name: build
+         run: mvn clean compile
+
+       - name: jfrog CLI setup
+         uses: jfrog/setup-jfrog-cli@v4
+         with:
+            version: latest
+         
+       - name: upload artifacts
+         run |
